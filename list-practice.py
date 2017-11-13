@@ -1,11 +1,9 @@
-"""
-Goal: Practice with lists
+"""Goal: Practice with lists
 Follow the directions to create a list that will pass the automated testing
-If you're correct, you'll get a message in the terminal saying "Your string_list appears to be correct".
-"""
+If you're correct, you'll get a message in the terminal saying "Your string_list appears to be correct"."""
 
 # On the line below, create a list named string_list containing 7 strings
-
+string_list = ["potato", "tomato", "celery", "carrots", "green beans", "onion", "garlic"]
 
 
 
