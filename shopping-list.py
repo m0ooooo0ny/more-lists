@@ -21,50 +21,93 @@ exit_opts = ["exit", "'exit'", "Exit", "'Exit'", "EXIT", "'EXIT'"]
 view_opts = ["view", "'view'", "View", "'View'", "VIEW", "'VIEW'"]
 add_opts = ["add", "'add'", "Add", "'Add'", "ADD", "'ADD'"]
 help_opts = ["help", "'help'", "Help", "'Help'", "HELP", "'HELP'"]
+delete_opts = ["delete", "'delete'", "Delete", "'Delete'", "DELETE", "'DELETE'"]
 
 cont = True
-print("""If at any time you wish to stop adding items, type in 'exit'.
-If at any time you wish to see what you have added, type in 'view'.
-If you wish to see commands at any time, type in 'help'.
-You are currently in item entry mode.
+print("""If you wish to add items to your list, type in 'add'.
+If you wish to delete items from your list, type in 'delete'.
+If you wish to stop adding items, type in 'exit'.
+If you wish to see what you have added, type in 'view'.
+If you wish to see available commands, type in 'help'.
 """)
 
 def shopping():
     global cont
     global opt
     while cont == True:
-        opt = input("""What item would you like to add?: """)
+        opt = input("What would you like to do?: ")
         if opt in exit_opts:
-            print("""
-You have exited the program.""")
-            cont = False
+            exit_mode()
         elif opt in view_opts:
-            print("""
-You are now in view mode.
-Your current shopping list contains:""")
-            if len(shopping_list) == 0:
-                print("""
-There is nothing in your list.""")
-            else:
-                print(shopping_list[:])
-            entry = input("""
-Would you like to return to item entry mode? [Y/N]: """)
-            if entry == "Y" or entry == "y":
-                cont = True
-            if entry == "N" or entry == "n":
-                cont = False
+            view_mode()
         elif opt in help_opts:
-            print("""
-exit = exiting item entry
-view = view current list
-anything else = adds what is typed to list.""")
+            help_mode()
+        elif opt in delete_opts:
+            delete_mode
+        elif opt in add_opts:
+            add_mode()
         else:
-            shopping_list.append(opt)
+            opt = input("I am sorry but that is not an acceptable response. Please try again.: ")
 
+def exit_mode():
+    global cont
+    if len(shopping_list) == 0:
+        print("""\nYou have exited the program.
+You have no items on your shopping list.""")
+    else:
+        print("""\nYou have exited the program.
+Your finalized shopping list is:""")
+        print(shopping_list[:])
+    cont = False
 
+def view_mode():
+    print("""\nYou are now in view mode.""")
+    if len(shopping_list) == 0:
+        print("""\nYou have no items in your shopping list right now.
+        """)
+    else:
+        print("""\nYour current shopping list is:""")
+        print(shopping_list[:],"""
+        """)
+    shopping()
+
+def help_mode():
+    print("""\nYou are now in help mode.
+If you wish to exit the program, type 'exit'.
+If you wish to add more items, type 'add'.
+If you wish to delete items, type 'delete'.
+If you wish to ask for help, type 'help' (but you should already know that if
+    you're here, you dingus.)
+If you wish to view your current list, type 'view'.
+""")
+    shopping()
+
+def add_mode():
+    print("""\nYou are currently in add mode.
+Type in what items you would like to add.
+If you would like to exit add mode, simply type in 'end'.
+You will not be prompted to type in 'end'.
+""")
+    cont1 = True
+    while cont1 == True:
+        item = input("What item would you like to add?: ")
+        if item == "end":
+            print("""\nYou have exited add mode.
+            """)
+            cont1 = False
+            shopping()
+        else:
+            shopping_list.append(item)
 
 shopping()
 
-print("""
-Your finalized shopping list contains:""")
-print(shopping_list[:])
+
+opt = input("What would you like to do next?: ")
+    #if opt in help_opts:
+        #help_mode()
+    #if opt in add_opts:
+        #add_mode()
+    #if opt in exit_opts:
+        #exit_mode()
+    #if opt in delete_opts:
+        #delete_mode()
