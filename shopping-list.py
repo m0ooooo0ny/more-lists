@@ -100,14 +100,3 @@ You will not be prompted to type in 'end'.
             shopping_list.append(item)
 
 shopping()
-
-
-opt = input("What would you like to do next?: ")
-    #if opt in help_opts:
-        #help_mode()
-    #if opt in add_opts:
-        #add_mode()
-    #if opt in exit_opts:
-        #exit_mode()
-    #if opt in delete_opts:
-        #delete_mode()
