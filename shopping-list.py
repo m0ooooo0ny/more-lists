@@ -1,21 +1,3 @@
-"""Goal: Create code to allow a user to create a shopping list
-Minimum requirements:
-  * User can enter items which will be stored in the shopping list
-  * User can exit item entry mode, which will cause the program to print the contents of the list
-Stretch goals:
-  * User can delete an item from the list
-  * A command user can enter at any time to display the contents of the list
-
-Advice:
-  * You want to continue doing this for an unknown number of repetitions - what sort of loop would you use?
-  * Remember that break will take you out of a loop, so you could say that if some string were entered - for instance 'exit' - you would do something and exit the loop
-  * You're probably going to want to use input() and shopping_list.append()
-  * Remember to do this one step at a time.
-    * Make sure you can add a single item before you try to loop it.
-    * Make sure the loop is working before you worry about how to do more advanced things
-
-There is no automated checking on this one."""
-
 shopping_list = []
 exit_opts = ["exit", "'exit'", "Exit", "'Exit'", "EXIT", "'EXIT'"]
 view_opts = ["view", "'view'", "View", "'View'", "VIEW", "'VIEW'"]
@@ -43,7 +25,7 @@ def shopping():
         elif opt in help_opts:
             help_mode()
         elif opt in delete_opts:
-            delete_mode
+            delete_mode()
         elif opt in add_opts:
             add_mode()
         else:
@@ -85,7 +67,7 @@ If you wish to view your current list, type 'view'.
 def add_mode():
     print("""\nYou are currently in add mode.
 Type in what items you would like to add.
-If you would like to exit add mode, simply type in 'end'.
+If you would like to exit add mode, type in 'end'.
 You will not be prompted to type in 'end'.
 """)
     cont1 = True
@@ -98,5 +80,40 @@ You will not be prompted to type in 'end'.
             shopping()
         else:
             shopping_list.append(item)
+
+def delete_mode():
+    if len(shopping_list) == 0:
+        print("""\nYou currently have no items to remove.
+        """)
+        shopping()
+    print("""\nYou are currently in delete mode.
+Type in what items you would like to delete.
+If you would like to exit delete mode, type in 'end'.
+You will not be prompted to type in 'end'.
+""")
+    cont2 = input("Would you like to view your list before continuing? [Y/N]: ")
+    if cont2 == "Y":
+        print("""\nYour current list is:""")
+        print(shopping_list[:],"""
+        """)
+    cont3 = True
+    while cont3 == True:
+        if cont2 == "end":
+            print("""\nYou have exited delete mode.
+            """)
+            cont3 = False
+            shopping()
+        else:
+            item = input("What item would you like to delete? Please type one item at a time.: ")
+            if item == "end":
+                print("""\nYou have exited delete mode.
+                """)
+                shopping()
+            elif item not in shopping_list:
+                print("""\nThat item is not in your list.
+Please check to make sure your spelling is correct.
+""")
+            else:
+                shopping_list.remove(item)
 
 shopping()
